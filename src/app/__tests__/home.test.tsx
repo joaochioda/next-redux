@@ -3,6 +3,7 @@ import { render, screen, waitFor } from "@testing-library/react";
 import Home, { ChildComo } from "../page";
 import { configureStore } from "@reduxjs/toolkit";
 import { Provider } from "react-redux";
+import { IntlProvider } from "react-intl";
 
 const createTestStore = (initialState: any) => {
   return configureStore({
@@ -24,9 +25,8 @@ describe("Home", () => {
   it("click button and show logged in", async () => {
     render(<Home />);
 
-    const button = screen.getByRole("button");
-
-    button.click();
+    const button = screen.queryByTestId("login-button");
+    button?.click();
 
     await waitFor(() => screen.getByText("You are now Logged In"));
 
@@ -43,9 +43,11 @@ describe("Home", () => {
 
     const store = createTestStore(initialState);
     const { getByText } = render(
-      <Provider store={store}>
-        <ChildComo />
-      </Provider>
+      <IntlProvider messages={{}} locale={"en"} defaultLocale="en">
+        <Provider store={store}>
+          <ChildComo />
+        </Provider>
+      </IntlProvider>
     );
     expect(getByText("Dom Ruan")).toBeInTheDocument();
   });
