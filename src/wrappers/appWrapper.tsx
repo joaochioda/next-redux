@@ -1,5 +1,4 @@
 "use client";
-
 import ReduxProvider from "@/redux/redux-provider";
 import IntlWrapper from "./intlWrapper";
 
@@ -9,10 +8,8 @@ export default function AppWrapper({
   children: React.ReactNode;
 }>) {
   return (
-    <>
-      <ReduxProvider>
-        <IntlWrapper>{children}</IntlWrapper>
-      </ReduxProvider>
-    </>
+    <ReduxProvider>
+      <IntlWrapper>{children}</IntlWrapper>
+    </ReduxProvider>
   );
 }

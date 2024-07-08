@@ -3,7 +3,11 @@ import { Inter } from "next/font/google";
 import "../theme/globals.css";
 import AppWrapper from "@/wrappers/appWrapper";
 
-const inter = Inter({ subsets: ["latin"] });
+import { Roboto } from "next/font/google";
+const roboto = Roboto({
+  weight: ["400", "500", "700"],
+  subsets: ["latin"],
+});
 
 export const metadata: Metadata = {
   title: "Qikserve",
@@ -17,7 +21,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className={inter.className}>
+      <body className={roboto.className}>
         <AppWrapper>{children}</AppWrapper>
       </body>
     </html>

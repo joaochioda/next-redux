@@ -1,0 +1,19 @@
+
+.input {
+    margin: 16px 0px;
+    height: 40px;
+    width: calc(100% - 44px);
+    background: url('/search.svg') no-repeat 10px center;
+    background-size: 20px;
+    padding-left: 40px;
+    border: 1px solid #8A94A4;
+    border-radius: 7px;
+    &::placeholder {
+      color: #8A94A4;
+    }
+    @media (min-width: 768px) {
+      margin: 6px 0px;
+      width: calc(100% - 44px);
+    }
+  }
+

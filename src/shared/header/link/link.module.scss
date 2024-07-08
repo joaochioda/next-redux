@@ -1,0 +1,15 @@
+.link {
+  width: 232px;
+  color: white;
+  font-size: 1.25rem;
+  cursor: pointer; 
+  height: 47px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.selected {
+  //increase distance between selected link and border
+  border-bottom: 5px solid white;
+}
