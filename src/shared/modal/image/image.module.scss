@@ -1,4 +1,9 @@
 .image {
+  width: 480px;
+    height: 320px;
+    @media (max-width: 768px) {
+      height: 265px;
+    }
   img {
     width: 480px;
     height: 320px;

@@ -1,8 +1,14 @@
 import { Box } from "@mui/material";
 import { useMediaQuery } from "@mui/material";
 
-export default function Container({ children }: { children: React.ReactNode }) {
-  const isSmallScreen = useMediaQuery("(max-width: 468px)");
+export default function Container({
+  children,
+  width,
+}: {
+  children: React.ReactNode;
+  width: string;
+}) {
+  const isSmallScreen = useMediaQuery(`(max-width: ${width}px)`);
   const style = {
     position: "absolute" as "absolute",
     top: isSmallScreen ? "0" : "50%",

@@ -1,3 +1,5 @@
 export const messagesInBrazil = {
-  hi: "Oi",
+  home: "HOME",
+  enter: "ENTRAR",
+  contact: "CONTATO",
 };

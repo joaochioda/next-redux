@@ -1,4 +1,3 @@
-implementar todo html/css home - doing
 implementar todo html/css modais
 implementar loading no lugar do 'loading...'
 implementar todo javascript home (incluir search)

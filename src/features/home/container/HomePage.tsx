@@ -1,3 +1,4 @@
+/* eslint-disable @next/next/no-img-element */
 "use client";
 
 import { useAppSelector } from "@/redux/store";
@@ -7,14 +8,28 @@ import styles from "./home.module.scss";
 import useSWR from "swr";
 import { fetcher } from "@/wrappers/intlWrapper";
 import { Menu, MenuItem } from "@/pages/api/menu";
-import { Section } from "@/components/Section";
-import { MenuList } from "@/components/menu-list";
+import { Section } from "@/features/home/components/Section";
+import { MenuList } from "@/features/home/components/menu-list";
 import { useState } from "react";
 import { Modal } from "@/shared/modal";
+import Minus from "@/icons/minus.svg";
+import Plus from "@/icons/plus.svg";
+import { FormattedMessage } from "react-intl";
+import Cart from "../components/cart";
+import { useMediaQuery } from "@mui/material";
+import X from "@/icons/x.svg";
+
+export interface Cart {
+  id: number;
+  name: string;
+  price: number;
+  modifiersName: string;
+  modifiersPrice: number;
+}
 
 export default function HomePage() {
   const layout = useAppSelector((state) => state.layout);
-
+  const tabletSize = useMediaQuery("(max-width: 768px)");
   const { data, error, isLoading } = useSWR("api/menu", fetcher, {
     revalidateOnFocus: false,
   }) as { data: Menu; error: any; isLoading: boolean };
@@ -24,6 +39,14 @@ export default function HomePage() {
   const [selectedItemModal, setSelectedItemModal] = useState<MenuItem | null>(
     null
   );
+  const [count, setCount] = useState(1);
+  const [selectedOption, setSelectedOption] = useState<number>(-1);
+  const [order, setOrder] = useState<Cart[]>([]);
+  const [showBasket, setShowBasket] = useState(false);
+
+  const style = {
+    "--primaryCollor": layout.primaryColour || "black",
+  } as React.CSSProperties;
 
   function handleClickSection(idx: number) {
     setSelectedSection((prev) => (prev === idx ? -1 : idx));
@@ -34,13 +57,45 @@ export default function HomePage() {
     setShowCollapse((prev) => prev.map((_, i) => i === idx));
   }
 
+  function addToOrder() {
+    let selectedModifier = null;
+    if (selectedOption !== -1) {
+      //find selected modifier
+      selectedModifier =
+        selectedItemModal?.modifiers?.[0].items[selectedOption];
+    }
+    if (selectedItemModal) {
+      const newOrder = [...order];
+      for (let i = 0; i < count; i++) {
+        newOrder.push({
+          id: selectedItemModal.id,
+          name: selectedItemModal.name,
+          price: selectedItemModal.price,
+          modifiersName: selectedModifier?.name || "",
+          modifiersPrice: selectedModifier?.price || 0,
+        });
+      }
+      setOrder(newOrder);
+      setSelectedItemModal(null);
+      setCount(1);
+      setSelectedOption(-1);
+    }
+  }
+
   return (
     <>
       <Header.Root>
         <Header.Menu backgroundColor={layout.navBackgroundColour}>
-          <Header.Link name="MENU" selected />
-          <Header.Link name="ENTRAR" />
-          <Header.Link name="CONTATO" />
+          <Header.Link
+            name={<FormattedMessage id="home" defaultMessage="HOME" />}
+            selected
+          />
+          <Header.Link
+            name={<FormattedMessage id="enter" defaultMessage="enter" />}
+          />
+          <Header.Link
+            name={<FormattedMessage id="contact" defaultMessage="contact" />}
+          />
         </Header.Menu>
         <Header.Banner img={layout.bannerImage} />
       </Header.Root>
@@ -96,7 +151,15 @@ export default function HomePage() {
                         key={item.id}
                         onClick={() => setSelectedItemModal(item)}
                       >
-                        <MenuList.Name name={item.name} />
+                        <MenuList.Name
+                          name={item.name}
+                          count={
+                            order.filter(
+                              (orderItem) => orderItem.id === item.id
+                            ).length
+                          }
+                          color={layout.primaryColour}
+                        />
                         <MenuList.Description
                           description={item.description || ""}
                         />
@@ -114,15 +177,88 @@ export default function HomePage() {
               )}
             </>
           )}
+          {tabletSize && order.length > 0 && (
+            <button
+              className={styles["add-to"]}
+              onClick={() => setShowBasket(true)}
+            >
+              {`You basket: ${order.length} items`}
+            </button>
+          )}
         </section>
 
-        <section className={`${styles.card} ${styles.cart}`}>Carrinho</section>
+        <section className={`${styles.card} ${styles.cart}`}>
+          <Cart locale={layout.locale} order={order} />
+        </section>
+
+        <Modal.Root open={showBasket}>
+          <Modal.Container width="768">
+            <img
+              src={X.src}
+              alt="close"
+              onClick={() => setShowBasket(false)}
+              className={styles.close}
+            />
+            <Cart locale={layout.locale} order={order} />
+          </Modal.Container>
+        </Modal.Root>
+
         <Modal.Root open={selectedItemModal?.id ? true : false}>
-          <Modal.Container>
+          <Modal.Container width="468">
             <Modal.Image
               src={selectedItemModal?.images?.[0].image}
-              onClose={() => setSelectedItemModal(null)}
+              onClose={() => {
+                setSelectedItemModal(null);
+                setCount(1);
+              }}
             />
+            <Modal.Title title={selectedItemModal?.name || ""} />
+            <Modal.Description
+              description={selectedItemModal?.description || ""}
+            />
+            {selectedItemModal?.modifiers?.length && (
+              <Modal.OptionsContainer
+                title={selectedItemModal?.modifiers[0].name}
+                minChoices={selectedItemModal?.modifiers[0].minChoices}
+              >
+                {selectedItemModal?.modifiers[0].items.map((item, idx) => (
+                  <Modal.Options
+                    key={item.id}
+                    selected={selectedOption === idx}
+                    name={item.name}
+                    price={item.price.toString()}
+                    locale={layout.locale}
+                    primaryColour={layout.primaryColour}
+                    selectedOption={() => setSelectedOption(idx)}
+                  />
+                ))}
+              </Modal.OptionsContainer>
+            )}
+            <Modal.Footer
+              addToOrder={addToOrder}
+              canClick={
+                !(selectedItemModal?.modifiers?.[0].items.length
+                  ? selectedOption !== -1
+                  : true)
+              }
+            >
+              <button
+                className={styles["footer-buttons"]}
+                disabled={count < 2}
+                onClick={() => setCount((prev) => prev - 1)}
+                style={style}
+              >
+                <img src={Minus.src} alt="Minus" />
+              </button>
+              <span className={styles["footer-count"]}>{count}</span>
+              <button
+                className={styles["footer-buttons"]}
+                style={style}
+                onClick={() => setCount((prev) => prev + 1)}
+              >
+                <img src={Plus.src} alt="Plus" />
+              </button>
+            </Modal.Footer>
           </Modal.Container>
         </Modal.Root>
       </main>

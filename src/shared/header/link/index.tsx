@@ -1,10 +1,11 @@
 import styles from "./link.module.scss";
+import { ReactNode } from "react";
 
 export default function Link({
   name,
   selected,
 }: {
-  name: string;
+  name: ReactNode;
   selected?: boolean;
 }) {
   return (

@@ -1,5 +1,11 @@
-
-.options-container {
-  
+.blue-content{
+  background-color: #F8F9FA;
+  padding: 16px 24px;
+  p:first-child {
+    font-weight: 700;
+    color: #464646;
+  }
+  p:nth-child(2) {
+    color: #5F5F5F;
+  }
 }
-
