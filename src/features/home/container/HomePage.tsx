@@ -82,6 +82,9 @@ export default function HomePage() {
     }
   }
 
+  console.log(layout.locale);
+  console.log(order);
+
   return (
     <>
       <Header.Root>
