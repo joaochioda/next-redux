@@ -11,3 +11,5 @@ npm run dev
 
 
 ```
+
+![image](https://github.com/joaochioda/next-redux/assets/47106171/d93d48ae-3084-4dab-847b-9d67e00a991d)
