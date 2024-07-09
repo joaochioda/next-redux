@@ -7,6 +7,7 @@ export interface ILayoutState {
   primaryColour: string;
   primaryColourHover: string;
   navBackgroundColour: string;
+  locale: string;
 }
 
 const initialState: ILayoutState = {
@@ -15,6 +16,7 @@ const initialState: ILayoutState = {
   primaryColour: "",
   primaryColourHover: "",
   navBackgroundColour: "",
+  locale: "en",
 };
 
 export const layout = createSlice({
@@ -27,6 +29,7 @@ export const layout = createSlice({
       state.primaryColour = action.payload.primaryColour;
       state.primaryColourHover = action.payload.primaryColourHover;
       state.navBackgroundColour = action.payload.navBackgroundColour;
+      state.locale = action.payload.locale;
     },
   },
 });

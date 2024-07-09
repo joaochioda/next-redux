@@ -23,8 +23,12 @@ export default function IntlWrapper({
   if (isLoading) return <div>Loading...</div>;
 
   const locale = data.locale;
+  const webSettingsWithLocale = {
+    ...data.webSettings,
+    locale,
+  };
 
-  dispatch(setLayout(data.webSettings));
+  dispatch(setLayout(webSettingsWithLocale));
 
   return (
     <IntlProvider

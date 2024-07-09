@@ -1,0 +1,23 @@
+.root {
+}
+
+.collapse {
+  font-weight: 500;
+  font-size: 1.5rem;
+  color: #121212;
+  display: flex;
+  justify-content: space-between;
+  padding-top: 32px;
+  padding-bottom: 16px;
+  cursor: pointer;
+}
+
+.rotateUp {
+  transform: rotate(0deg);
+  transition: transform 0.3s;
+}
+
+.rotateDown {
+  transform: rotate(180deg);
+  transition: transform 0.3s;
+}

@@ -25,7 +25,7 @@ interface Modifier {
   items: ModifierItem[];
 }
 
-interface MenuItem {
+export interface MenuItem {
   id: number;
   name: string;
   description?: string;
@@ -50,7 +50,7 @@ interface Section {
   items: MenuItem[];
 }
 
-interface Menu {
+export interface Menu {
   id: number;
   name: string;
   type: string;
