@@ -17,6 +17,7 @@ export default function Container({
     width: isSmallScreen ? "100%" : "480px",
     height: isSmallScreen ? "100%" : "fit-content",
     bgcolor: "background.paper",
+    overflowY: "auto",
   };
 
   return <Box sx={style}>{children}</Box>;
