@@ -177,14 +177,6 @@ export default function HomePage() {
               )}
             </>
           )}
-          {tabletSize && order.length > 0 && (
-            <button
-              className={styles["add-to"]}
-              onClick={() => setShowBasket(true)}
-            >
-              {`You basket: ${order.length} items`}
-            </button>
-          )}
         </section>
 
         <section className={`${styles.card} ${styles.cart}`}>
@@ -261,6 +253,14 @@ export default function HomePage() {
             </Modal.Footer>
           </Modal.Container>
         </Modal.Root>
+        {tabletSize && order.length > 0 && (
+          <button
+            className={styles["add-to"]}
+            onClick={() => setShowBasket(true)}
+          >
+            {`Your basket: ${order.length} items`}
+          </button>
+        )}
       </main>
     </>
   );

@@ -18,6 +18,8 @@ export default function Container({
     height: isSmallScreen ? "100%" : "fit-content",
     bgcolor: "background.paper",
     overflowY: "auto",
+    display: "flex",
+    flexDirection: "column",
   };
 
   return <Box sx={style}>{children}</Box>;
