@@ -1,0 +1,20 @@
+.name {
+  grid-column: 1;
+  font-weight: 500;
+  line-height: 19px;
+}
+.container {
+  display: flex;
+  gap: 8px;
+}
+.count {
+  color: white;
+  background-color: var(--primaryCollor);
+  width: 18px;
+  height: 18px;
+  font-size: 14px;
+  text-align: center;
+  border-radius: 4px;
+  font-weight: 500;
+  line-height: 18px;
+}

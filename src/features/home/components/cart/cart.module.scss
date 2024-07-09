@@ -1,0 +1,62 @@
+.cart {
+}
+
+.header {
+  height: 64px;
+  background-color: #f8f9fa;
+  p {
+    padding: 22px 24px;
+    color: #464646;
+    font-size: 24px;
+    font-weight: 500;
+  }
+}
+
+.sub-total {
+  background-color: #f8f9fa;
+  padding: 16px;
+  display: flex;
+  justify-content: space-between;
+  p:first-child {
+    color: #121212;
+  }
+  p:nth-child(2) {
+    color: #121212;
+    font-weight: 500;
+  }
+  border-bottom: 1px solid #dadada;
+}
+
+.total {
+  background-color: #f8f9fa;
+  padding: 16px;
+  display: flex;
+  justify-content: space-between;
+  p:first-child {
+    font-size: 24px;
+    color: #121212;
+  }
+  p:nth-child(2) {
+    color: #121212;
+    font-weight: 700;
+    font-size: 24px;
+  }
+}
+
+.items {
+  padding: 8px 16px;
+  display: flex;
+  justify-content: space-between;
+  p:first-child {
+    color: #121212;
+    font-weight: 400;
+  }
+  p:nth-child(2) {
+    color: #121212;
+    font-weight: 500;
+  }
+}
+.modifiersName {
+  color: #5F5F5F !important;
+  font-weight: 400 !important;
+}

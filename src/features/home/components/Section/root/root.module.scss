@@ -1,0 +1,20 @@
+.root {
+  display: flex;
+  flex-direction: column;
+  gap: 32px;
+  cursor: pointer;
+  label {
+    cursor: pointer;
+  }
+}
+
+
+.selected {
+  img {
+    border: 2px solid var(--colorSelectedSection);
+  }
+  label {
+    border-bottom: 2px solid var(--colorSelectedSection);
+    font-weight: 600;
+  }
+}

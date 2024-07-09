@@ -102,6 +102,9 @@ section {
 }
 body {
   line-height: 1;
+  height: 100%;
+  min-height: 100vh;
+  background-color: #EEEEEE;
 }
 ol,
 ul {

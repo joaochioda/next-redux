@@ -1,0 +1,26 @@
+.menu {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 52px;
+}
+
+.menu-mobile {
+  height: 64px;
+  font-size: 1.125rem;
+  align-items: center;
+  color: white;
+  display: flex;
+  justify-content: center;
+  width: 100%;
+  > p {
+    width: 100%;
+    text-align: center;
+    margin-left: 53px;
+    font-weight: 500;
+  }
+}
+
+.menu-mobile__icon {
+  margin: 18px;
+}
